@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import type { FAQItem } from './types/faq';
 import { DRIVE_CMS } from './config/driveConfig';
-import { fetchDriveCsv } from './utils/DriveUtils';
 import { ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { fetchWithSmartCache } from './utils/DriveUtils';
 
 export const Faqs: React.FC = () => {
   const [faqs, setFaqs] = useState<FAQItem[]>([]);
@@ -15,18 +16,18 @@ export const Faqs: React.FC = () => {
   ];
 
   useEffect(() => {
-    // Usiamo la funzione utils passando l'URL e la logica di mappatura
-    fetchDriveCsv<FAQItem>(
+    fetchWithSmartCache<FAQItem>(
       DRIVE_CMS.SHEETS.HOME.FAQ,
+      'cache_faq_home',
       (cells) => ({
-        q: cells[0], // Colonna A -> domanda
-        a: cells[1], // Colonna B -> risposta
-        domanda: cells[0],
-        risposta: cells[1]
+        q: cells[0],
+        a: cells[1],
       })
-    ).then(data => {
-      if (data && data.length > 0) setFaqs(data);
-      // altrimenti manteniamo il fallback
+    ).then((data: FAQItem[]) => {
+      const filteredData = data.filter((d: FAQItem) => d.q && !d.q.includes(':DOMANDA') && !d.q.includes('DOMANDA') && d.q !== '');
+      setFaqs(filteredData);
+    }).catch(() => {
+      console.error('Errore nel caricamento delle FAQ');
     });
   }, []);
 
@@ -37,20 +38,43 @@ export const Faqs: React.FC = () => {
       {items.map((f, i) => {
         const isOpen = activeIndex === i;
         return (
-          <div key={i} className="bg-slate-50 p-0 rounded-lg border-l-4 border-[#1e3a8a] overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1, duration: 0.5 }}
+            key={i} 
+            className="bg-slate-50 p-0 rounded-lg border-l-4 border-[#1e3a8a] overflow-hidden"
+          >
             <div
               onClick={() => setActiveIndex(isOpen ? null : i)}
               style={{ padding: '20px 18px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
             >
               <h4 style={{ fontWeight: 800, color: '#1e3a8a', margin: 0 }}>{f.q ?? f.domanda ?? f.question}</h4>
-              <ChevronDown size={20} style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.25s ease', color: isOpen ? '#1e3a8a' : '#94a3b8' }} />
+              <motion.div
+                animate={{ rotate: isOpen ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ChevronDown size={20} style={{ color: isOpen ? '#1e3a8a' : '#94a3b8' }} />
+              </motion.div>
             </div>
 
-            <div style={{ maxHeight: isOpen ? '400px' : '0', overflow: 'hidden', transition: 'all 0.35s ease', padding: isOpen ? '12px 18px 20px' : '0 18px' }}>
-              <div style={{ height: '1px', backgroundColor: '#f1f5f9', marginBottom: '12px' }} />
-              <p style={{ margin: 0, color: '#475569', lineHeight: 1.6 }}>{f.a ?? f.risposta ?? f.answer}</p>
-            </div>
-          </div>
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  style={{ overflow: 'hidden' }}
+                >
+                  <div style={{ padding: '0 18px 20px' }}>
+                    <div style={{ height: '1px', backgroundColor: '#e2e8f0', marginBottom: '12px' }} />
+                    <p style={{ margin: 0, color: '#475569', lineHeight: 1.6 }}>{f.a ?? f.risposta ?? f.answer}</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
         );
       })}
     </div>

@@ -1,52 +1,62 @@
-/**
- * Trasforma un link di Google Drive in un URL utilizzabile nel tag <img>
- * @param driveInput - Può essere l'URL completo o solo l'ID del file
- */
 export const getDriveImageUrl = (driveInput?: string): string => {
   if (!driveInput) return "";
-
   let id = driveInput;
-
-  // Se è un URL completo, estraiamo l'ID usando una Regex
   if (driveInput.includes("drive.google.com")) {
     const match = driveInput.match(/\/d\/(.+?)\/(view|edit)?/);
     id = match ? match[1] : driveInput;
   }
-
-  // Questo è il formato "Universal" per l'anteprima diretta
-  return `https://drive.google.com/uc?export=view&id=${id}`;
+  const cleanId = id
+    .replace("https://drive.google.com/file/d/", "")
+    .split("/")[0]
+    .split("?")[0];
+  return `https://drive.google.com/thumbnail?id=${cleanId}&sz=w800`;
 };
 
-
-// src/utils/driveUtils.ts
-
-/**
- * Converte un ID di Google Drive in un URL visualizzabile dal browser
- */
 export const getDriveImageId = (id: string): string => {
   if (!id) return "";
-  // Ritorna il formato export=view che bypassa l'interfaccia di Drive
-  return `https://drive.google.com/uc?export=view&id=${id}`;
+  const cleanId = id
+    .replace("https://drive.google.com/file/d/", "")
+    .split("/")[0]
+    .split("?")[0];
+  return `https://drive.google.com/thumbnail?id=${cleanId}&sz=w800`;
 };
 
+const CACHE_EXPIRATION_MS = 10 * 60 * 1000;
 
-export const fetchDriveCsv = async <T>(
-  url: string, 
-  mapper: (cells: string[]) => T
-): Promise<T[]> => {
+const fetchDataAndCache = async (url: string, key: string, mapper: (cells: string[]) => any): Promise<any[]> => {
   try {
-    const response = await fetch(url);
-    const text = await response.text();
-    
-    // Dividiamo per righe e poi per colonne
-    const rows = text.split(/\r?\n/).map(row => row.split(','));
-    
-    // Saltiamo l'intestazione (riga 0) e mappiamo il resto
-    return rows.slice(1)
-      .filter(row => row.length > 1 && row[0].trim() !== "") // Evitiamo righe vuote
-      .map(cells => mapper(cells.map(c => c.replace(/"/g, '').trim()))); // Pulizia celle
-  } catch (error) {
-    console.error("Errore durante il fetch del CSV:", error);
+    const res = await fetch(`${url}&t=${Date.now()}`);
+    if (!res.ok) throw new Error("Errore Google");
+    const text = await res.text();
+    const rows = text.split(/\r?\n/).map((row) => row.split(","));
+    const freshData = rows
+      .slice(1)
+      .filter((r) => r.length > 1 && r[0].trim() !== "" && !r[0].includes(":"))
+      .map((cells) => mapper(cells.map((c) => c.replace(/"/g, "").trim())));
+    localStorage.setItem(key, JSON.stringify({ data: freshData, timestamp: Date.now() }));
+    return freshData;
+  } catch (err) {
+    console.error("Errore durante il fetch del CSV:", err);
     return [];
   }
+};
+
+export const fetchWithSmartCache = async (url: string, cacheKey: string, mapper: (cells: string[]) => any): Promise<any[]> => {
+  const now = Date.now();
+  const cached = localStorage.getItem(cacheKey);
+  if (cached) {
+    try {
+      const { data, timestamp } = JSON.parse(cached);
+      if (now - timestamp < CACHE_EXPIRATION_MS) {
+        console.log(`[Cache] Usando dati freschi per ${cacheKey}`);
+        return data;
+      }
+      console.log(`[Cache] Dati scaduti per ${cacheKey}, aggiorno in background...`);
+      fetchDataAndCache(url, cacheKey, mapper).catch(() => {});
+      return data;
+    } catch (e) {
+      console.error("Errore parsing cache:", e);
+    }
+  }
+  return await fetchDataAndCache(url, cacheKey, mapper);
 };
