@@ -12,9 +12,9 @@ export default function App() {
       <div style={{ fontFamily: 'Inter, system-ui, sans-serif', color: COLORS.dark, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Navbar />
         <div style={{ flex: 1 }}>
-          <div style={{ padding: '20px', backgroundColor: '#ff0000', color: 'white', textAlign: 'center', fontSize: '20px' }}>
+          {/* <div style={{ padding: '20px', backgroundColor: '#ff0000', color: 'white', textAlign: 'center', fontSize: '20px' }}>
             🔴 TEST: Se vedi questo, il componente sta caricando
-          </div>
+          </div> */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/servizi" element={<Servizi />} />
