@@ -2,18 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Clock, UserCheck, Briefcase, Shield, GraduationCap, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Faqs } from '../../Faqs';
-import { COLORS , IMAGES } from '../../lib/constants';
+import { COLORS, IMAGES } from '../../lib/constants';
 import { fetchWithSmartCache, getDriveImageId } from '../../utils/DriveUtils';
 import { DRIVE_CMS } from '../../config/driveConfig';
 
 export const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
-  const [imageList, setImageList] = useState(DRIVE_CMS.IMAGES.HOME.map((id: string, idx: number) => ({
-    url: id.startsWith('http') ? id : getDriveImageId(id),
-    title: `Immagine ${idx + 1}`,
-    desc: `Descrizione per immagine ${idx + 1}`
-  })));
+  const [imageList, setImageList] = useState(IMAGES);
 
   // Stati Numeri
   const [hours, setHours] = useState(0);
