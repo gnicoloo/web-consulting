@@ -8,7 +8,7 @@ import { COLORS } from './lib/constants';
 
 export default function App() {
   return (
-    //<Router basename="/web-consulting/">
+    <Router> // basename="/web-consulting/"
       <div style={{ fontFamily: 'Inter, system-ui, sans-serif', color: COLORS.dark, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Navbar />
         <div style={{ flex: 1 }}>
