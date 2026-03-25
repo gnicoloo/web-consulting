@@ -18,7 +18,7 @@ export const IMAGES = [
     desc: "Analisi tecnica avanzata per la continuità operativa."
   },
   { 
-    url: "./images/image3.webp", 
+    url: "./images/image.webp", 
     title: "Formazione Tecnica",
     desc: "Corsi certificati e sviluppo competenze 4.0."
   }
