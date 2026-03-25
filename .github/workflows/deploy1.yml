@@ -2,12 +2,16 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # Verifica se la tua branch principale è 'main'
+    branches: ["main"]
 
 permissions:
   contents: read
   pages: write
   id-token: write
+
+# Forza l'ambiente a usare Node 24 per tutte le azioni
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
@@ -18,7 +22,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24 # <--- Aggiornato da 20 a 24
           cache: 'npm'
       - name: Install dependencies
         run: npm install
