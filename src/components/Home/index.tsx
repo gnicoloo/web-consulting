@@ -221,27 +221,17 @@ export const Home = () => {
         </Link>
       </div>
 
-      {/* NAVIGAZIONE - ORA BLOCCATA AI BORDI DELLA FINESTRA */}
+      {/* NAVIGAZIONE - PULITA E RESPONSIVE */}
       <button 
+        className="nav-btn prev-btn"
         onClick={() => setCurrentIndex(prev => imageList.length === 0 ? 0 : (prev === 0 ? imageList.length - 1 : prev - 1))}
-        style={{ 
-          position: 'absolute', left: '40px', top: '50%', transform: 'translateY(-50%)',
-          zIndex: 100, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)',
-          borderRadius: '50%', width: '60px', height: '60px', color: 'white', cursor: 'pointer',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)'
-        }}
       >
         <ChevronLeft size={35} />
       </button>
 
       <button 
+        className="nav-btn next-btn"
         onClick={() => setCurrentIndex(prev => imageList.length === 0 ? 0 : (prev === imageList.length - 1 ? 0 : prev + 1))}
-        style={{ 
-          position: 'absolute', right: '40px', top: '50%', transform: 'translateY(-50%)',
-          zIndex: 100, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)',
-          borderRadius: '50%', width: '60px', height: '60px', color: 'white', cursor: 'pointer',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)'
-        }}
       >
         <ChevronRight size={35} />
       </button>
@@ -303,13 +293,72 @@ export const Home = () => {
       </main>
 
       <style>{`
+        /* 1. ANIMAZIONI E RESET BASE */
         @keyframes bounce {
           0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
           40% { transform: translateY(-15px) translateX(-50%); }
           60% { transform: translateY(-7px) translateX(-50%); }
         }
-        body { margin: 0; padding: 0; overflow-x: hidden; }
+        body { margin: 0; padding: 0; overflow-x: hidden; width: 100%; }
+
+        /* 2. STILE FRECCE CAROSELLO (PC) */
+        .nav-btn {
+          position: absolute; 
+          top: 50%; 
+          transform: translateY(-50%);
+          z-index: 100; 
+          background: rgba(255,255,255,0.1); 
+          border: 1px solid rgba(255,255,255,0.2);
+          border-radius: 50%; 
+          width: 60px; 
+          height: 60px; 
+          color: white; 
+          cursor: pointer;
+          display: flex; 
+          align-items: center; 
+          justify-content: center; 
+          backdrop-filter: blur(10px);
+          transition: 0.3s;
+        }
+        .prev-btn { left: 40px; }
+        .next-btn { right: 40px; }
+
+        /* 3. FIX RESPONSIVE (MOBILE) */
+        @media (max-width: 768px) {
+          .nav-btn {
+            top: auto; 
+            bottom: 30px; 
+            transform: none;
+            width: 50px; 
+            height: 50px;
+          }
+          .prev-btn { left: 15%; } /* Leggermente più esterne per non coprire il centro */
+          .next-btn { right: 15%; }
+          
+          h1 { 
+            font-size: 2.2rem !important; /* Titolo più piccolo per non appiccicarsi */
+            padding: 0 15px; 
+            letter-spacing: -1px !important;
+          }
+          
+          p { 
+            padding: 0 25px; 
+            font-size: 0.95rem !important; 
+            margin-bottom: 30px !important;
+          }
+
+          /* Sistema i box dei numeri appiccicati */
+          section main {
+            padding: 60px 15px !important;
+          }
+          
+          div[style*="gridTemplateColumns"] {
+            gap: 20px !important; /* Riduce lo spazio tra i box su mobile */
+          }
+        }
       `}</style>
     </div>
   );
 };
+
+
