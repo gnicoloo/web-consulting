@@ -18,9 +18,9 @@ export const DRIVE_CMS = {
   // --- SEZIONE IMMAGINI (DRIVE) ---
   IMAGES: {
     HOME: [
-      "18ppanqYLTOLvaOJDLKFMufNSsAWXJE9E", // Hero/Main
-      "1CpHBTH_hXukCu5rPwmIwJ2XVvEugCe86", // Image 2
-      "1_i6ucsE2VT5aCKnsE-zNt0BxWs6JF-Xs"  // Image 3
+      '19hyQOEyryXoGmmtOGTuIqHuALZIxAB7k',
+      '13Cm5yNfOkAhExnyGGwbGMZoaFz1oeNAg',
+      '1BkLHomjRx1kUbvYCTApfW_pHA5oHMzBb'
     ],
     // Qui potrai aggiungere INDEX o altre pagine in futuro
     GLOBAL: {
