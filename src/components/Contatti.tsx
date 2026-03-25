@@ -13,7 +13,7 @@ export const Contatti = () => {
     gap: '15px',
     padding: '35px',
     backgroundColor: COLORS.white,
-    borderRadius: '30px',
+    borderRadius: '12px',
     border: '1px solid #e2e8f0',
     textDecoration: 'none',
     color: COLORS.dark,
@@ -118,10 +118,9 @@ export const Contatti = () => {
           position: 'relative',
           width: '100%',
           height: '450px',
-          borderRadius: '50px', // Stesso raggio delle tue card
+          borderRadius: '12px', // Stesso raggio delle tue card
           overflow: 'hidden',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.1)',
-          border: '1px solid #e2e8f0'
+          border: '1px solid #e2e8f0', boxShadow: 'none'
         }}>
           {/* MAPPA IFRAME CON FILTRO DESIGN */}
           <iframe 
@@ -144,7 +143,7 @@ export const Contatti = () => {
             backgroundColor: 'rgba(255, 255, 255, 0.85)', 
             backdropFilter: 'blur(10px)', // Effetto vetro sfocato
             padding: '25px', 
-            borderRadius: '30px',
+            borderRadius: '12px',
             boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
             maxWidth: '300px',
             border: '1px solid rgba(255,255,255,0.5)',

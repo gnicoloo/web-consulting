@@ -81,7 +81,7 @@ export const ChiSiamo = () => {
             <div key={idx} style={{ 
               padding: '30px', 
               border: '1px solid #e2e8f0', 
-              borderRadius: '30px',
+              borderRadius: '12px',
               backgroundColor: COLORS.white,
               boxShadow: '0 10px 30px rgba(0,0,0,0.02)'
             }}>
@@ -96,7 +96,7 @@ export const ChiSiamo = () => {
       {/* SEZIONE ESPERIENZA - STATS E VISION */}
         <div style={{ 
         padding: '100px 40px', 
-        borderRadius: '60px', 
+        borderRadius: '12px', 
         // Gradiente dal blu scuro a un blu più "elettrico" (quello di DO.MA.)
         background: `linear-gradient(135deg, ${COLORS.dark} 0%, #1e293b 100%)`, 
         textAlign: 'center',

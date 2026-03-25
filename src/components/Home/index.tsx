@@ -206,7 +206,7 @@ export const Home = () => {
               backgroundColor: COLORS.primary, 
               color: 'white', 
               border: 'none', 
-              borderRadius: '100px', 
+              borderRadius: '90px', 
               fontSize: '1.1rem', 
               fontWeight: '900', 
               cursor: 'pointer',
