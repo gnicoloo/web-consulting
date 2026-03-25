@@ -76,7 +76,7 @@ export const Servizi = () =>
                   
                   <div style={{ fontWeight: '800', color: COLORS.light, marginBottom: '10px' }}>
                     — Simona 
-                    <span style={{ color: '#64748b', fontWeight: '500', marginLeft: '5px' }}>
+                    <span style={{ color: COLORS.primary, fontWeight: '500', marginLeft: '5px' }}>
                       (Allieva corso di Responsabile di Magazzino nella Grande Distribuzione)
                     </span>
                   </div>
@@ -128,7 +128,7 @@ export const Servizi = () =>
                   
                   <div style={{ fontWeight: '800', color: COLORS.light, marginBottom: '10px' }}>
                     — Emilia 
-                    <span style={{ color: '#64748b', fontWeight: '500', marginLeft: '5px' }}>
+                    <span style={{ color: COLORS.primary, fontWeight: '500', marginLeft: '5px' }}>
                       (Allieva corso di Responsabile di Magazzino nella Grande Distribuzione)
                     </span>
                   </div>
