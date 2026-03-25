@@ -74,7 +74,7 @@ export const Servizi = () =>
                     "Ho frequentato un corso per responsabili di punto vendita della Grande Distribuzione, non nego le mie perplessità iniziali, sia per il numero elevato di ore di formazione che per l'argomento. Il corso invece si è rivelato una piacevole scoperta. Ben strutturato abbraccia in modo trasversale tutto il settore della GDO: dalla gestione del punto vendita al controllo qualità, dalla gestione del personale al Marketing. I docenti, in particolare i due principali, Domenico e Matteo, si sono rilevati non solo competenti ma con un grande bagaglio di esperienza personale che non hanno esitato a condividere, esponendo fatti concreti e realistici. Le lezioni non sono mai state noiose o passive, sono stata continuamente spronata al ragionamento e al problem solving. Che dire, quello che pensavo potesse essere la solita formazione monotona e noiosa si è rivelato uno stimolante appuntamento quotidiano. "
                   </p>
                   
-                  <div style={{ fontWeight: '800', color: COLORS.light, marginBottom: '10px' }}>
+                  <div style={{ fontWeight: '800', color: 'black', marginBottom: '10px' }}>
                     — Simona 
                     <span style={{ color: COLORS.primary, fontWeight: '500', marginLeft: '5px' }}>
                       (Allieva corso di Responsabile di Magazzino nella Grande Distribuzione)
@@ -128,7 +128,7 @@ export const Servizi = () =>
                   
                   <div style={{ fontWeight: '800', color: COLORS.light, marginBottom: '10px' }}>
                     — Emilia 
-                    <span style={{ color: COLORS.primary, fontWeight: '500', marginLeft: '5px' }}>
+                    <span style={{ color: 'black', fontWeight: '500', marginLeft: '5px' }}>
                       (Allieva corso di Responsabile di Magazzino nella Grande Distribuzione)
                     </span>
                   </div>
