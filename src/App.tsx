@@ -20,6 +20,7 @@ export default function App() {
             <Route path="/servizi" element={<Servizi />} />
             <Route path="/contatti" element={<Contatti />} />
             <Route path="/chi-siamo" element={<ChiSiamo />} />
+            <Route path="*" element={<Home />} />
           </Routes>
         </div>
         <footer style={{ padding: '40px 20px', textAlign: 'center', borderTop: '1px solid #eee', color: '#94a3b8', fontSize: '14px' }}>
