@@ -126,9 +126,9 @@ export const Servizi = () =>
                     "Ho frequentato un corso di 8 mesi per responsabile di magazzino nella grande distribuzione, Domenico e Matteo con capacità di relazione e umanità sono riusciti a farmi conseguire un attestato molto utile in un mondo che non si ferma mai di evolversi, grazie a loro sono riuscita a colmare molte lacune gestionali e sono riusciti a fare emergere competenze che pensavo di non avere."
                   </p>
                   
-                  <div style={{ fontWeight: '800', color: COLORS.light, marginBottom: '10px' }}>
+                  <div style={{ fontWeight: '800', color: 'black', marginBottom: '10px' }}>
                     — Emilia 
-                    <span style={{ color: 'black', fontWeight: '500', marginLeft: '5px' }}>
+                    <span style={{ color: COLORS.primary, fontWeight: '500', marginLeft: '5px' }}>
                       (Allieva corso di Responsabile di Magazzino nella Grande Distribuzione)
                     </span>
                   </div>
